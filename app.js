@@ -1,17 +1,41 @@
 const express = require("express");
-
+const mongoose = require("mongoose");
+const Blog = require("./models/blog");
 const app = express();
+
+//db
+const db =
+  "mongodb+srv://tester:123qwe@cluster0.yhmme6t.mongodb.net/?retryWrites=true&w=majority";
+
+mongoose
+  .connect(db)
+  .then((result) => {
+    console.log("db connected");
+    app.listen(3000);
+  })
+  .catch((err) => console.log(err));
 
 app.set("view engine", "ejs");
 
-app.listen(3000);
-
 app.get("/", (req, res) => {
-  res.render("index");
+  res.redirect("/blogs");
 });
 
 app.get("/about", (req, res) => {
   res.render("about");
+});
+
+app.get("/blogs", (req, res) => {
+  Blog.find()
+    .then((result) => {
+      console.log(result);
+      res.render("index", { title: "All blogs", blogs: result });
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get("/blogs/create", (req, res) => {
+  res.render("create");
 });
 
 app.use("/", (req, res) => {
