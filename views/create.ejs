@@ -4,13 +4,13 @@
   <body>
     <%- include('./partials/nav.ejs') %>
     <div class="create-blog content">
-      <form action="">
+      <form action="/blogs" method="post">
         <label for="title">Blog title:</label>
-        <input id="title" type="text" required />
+        <input id="title" name="title" type="text" required />
         <label for="snippet">Blog snippet:</label>
-        <input id="snippet" type="text" required />
+        <input id="snippet" name="snippet" type="text" required />
         <label for="content">Blog content:</label>
-        <textarea id="content" cols="30" rows="10" required></textarea>
+        <textarea id="content" name="content" cols="30" rows="10" required></textarea>
         <button>Submit blog</button>
       </form>
     </div>
