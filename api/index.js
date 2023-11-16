@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const blogRoutes = require("./routes/blogRoutes");
+const blogRoutes = require("../routes/blogRoutes");
 const mongoose = require("mongoose");
 const app = express();
 const { DB_TOKEN } = process.env;
