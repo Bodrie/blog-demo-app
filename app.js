@@ -6,9 +6,7 @@ const app = express();
 const { DB_TOKEN } = process.env;
 
 mongoose
-  .connect(
-    "mongodb+srv://tester:123qwe@cluster0.yhmme6t.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(DB_TOKEN)
   .then((result) => {
     console.log("[Server Log]\nSuccessfully connected to the DB");
     app.listen(3000);
