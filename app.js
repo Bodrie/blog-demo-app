@@ -1,11 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
 const app = express();
 
 //db
-const db =
-  "mongodb+srv://tester:123qwe@cluster0.yhmme6t.mongodb.net/?retryWrites=true&w=majority";
+const { TOKEN } = process.env;
+const db = TOKEN;
 
 mongoose
   .connect(db)
