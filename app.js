@@ -15,6 +15,8 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+app.use(express.static("public"));
+
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
@@ -22,22 +24,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { title: "About" });
 });
 
 app.get("/blogs", (req, res) => {
   Blog.find()
     .then((result) => {
-      console.log(result);
       res.render("index", { title: "All blogs", blogs: result });
     })
     .catch((err) => console.log(err));
 });
 
 app.get("/blogs/create", (req, res) => {
-  res.render("create");
+  res.render("create", { title: "New blog" });
 });
 
 app.use("/", (req, res) => {
-  res.status(404).render("404");
+  res.status(404).render("404", { title: "Not found" });
 });
