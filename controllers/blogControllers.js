@@ -3,13 +3,13 @@ const Blog = require("../models/blog");
 const blog_index = (req, res) => {
   Blog.find()
     .then((result) => {
-      res.render("index", { title: "All blogs", blogs: result });
+      res.render("blogs/index", { title: "All blogs", blogs: result });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(`[Server Log]\n${err}`));
 };
 
 const blog_create_get = (req, res) => {
-  res.render("create", { title: "New blog" });
+  res.render("blogs/create", { title: "New blog" });
 };
 
 const blog_create_post = (req, res) => {
@@ -19,19 +19,17 @@ const blog_create_post = (req, res) => {
     .then((result) => {
       res.redirect("/blogs");
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(`[Server Log]\n${err}`));
 };
 
 const blog_details = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
-      res.render("details", { blog: result, title: "Blog details" });
+      res.render("blogs/details", { blog: result, title: "Blog details" });
     })
     .catch((err) => {
-      console.log(err);
+      res.status().render("404", { title: "Blog not found!" });
     });
 };
 
@@ -40,9 +38,7 @@ const blog_delete = (req, res) => {
     .then((result) => {
       res.json({ redirect: "/blogs" });
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(`[Server Log]\n${err}`));
 };
 
 module.exports = {

@@ -3,20 +3,17 @@ const express = require("express");
 const blogRoutes = require("./routes/blogRoutes");
 const mongoose = require("mongoose");
 const app = express();
-
-//db
-const { TOKEN } = process.env;
-const db = TOKEN;
+const { DB_TOKEN } = process.env;
 
 mongoose
-  .connect(db)
+  .connect(DB_TOKEN)
   .then((result) => {
-    console.log("db connected");
+    console.log("[Server Log]\nSuccessfully connected to the DB");
     app.listen(3000);
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(`[Server Log]\n${err}`));
 
-app.use(express.static("."));
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
@@ -28,7 +25,7 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
-app.use('/blogs', blogRoutes);
+app.use("/blogs", blogRoutes);
 
 app.use("/", (req, res) => {
   res.status(404).render("404", { title: "Not found" });
